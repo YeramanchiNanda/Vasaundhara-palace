@@ -941,13 +941,20 @@ a {
     display: flex;
     align-items: baseline;
     margin-bottom: 0.8rem; /* Extremely compact vertical list flow */
-    transition: var(--transition-smooth);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s;
+}
+
+.menu-list li:hover {
+    transform: translateX(8px);
+    background: rgba(212, 175, 55, 0.05);
 }
 
 .menu-item-name {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.15rem;
-    color: var(--text-primary);
+    color: #111111; /* Pure dark for max legibility */
     letter-spacing: 1px;
     transition: color 0.3s;
 }
@@ -968,7 +975,7 @@ a {
 
 .menu-dots {
     flex-grow: 1;
-    border-bottom: 1px dotted rgba(0,0,0,0.2);
+    border-bottom: 2px dotted rgba(212, 175, 55, 0.4); /* Gold dots instead of grey */
     margin: 0 15px;
     position: relative;
     top: -5px;
@@ -976,9 +983,11 @@ a {
 
 .menu-item-price {
     font-family: var(--font-body);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--accent-red);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    min-width: 65px; /* Strict alignment boundary */
+    text-align: right;
 }
 
 /* Cinematic Expansion Teaser */
