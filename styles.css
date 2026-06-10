@@ -954,7 +954,7 @@ a {
 .menu-item-name {
     font-weight: 700;
     font-size: 1.15rem;
-    color: #111111; /* Pure dark for max legibility */
+    color: #F5F2EB; /* Elegant light beige/ivory for contrast on dark marble */
     letter-spacing: 1px;
     transition: color 0.3s;
 }
