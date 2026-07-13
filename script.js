@@ -185,7 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         link.classList.add('active');
                         // Scroll the sidebar link into view horizontally on mobile
                         if (window.innerWidth <= 992) {
-                            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                            const sidebarInner = document.querySelector('.sidebar-inner');
+                            if (sidebarInner) {
+                                const linkOffsetLeft = link.offsetLeft;
+                                const linkWidth = link.offsetWidth;
+                                const containerWidth = sidebarInner.offsetWidth;
+                                const targetScrollLeft = linkOffsetLeft - (containerWidth / 2) + (linkWidth / 2);
+                                sidebarInner.scrollTo({
+                                    left: targetScrollLeft,
+                                    behavior: 'smooth'
+                                });
+                            }
                         }
                     }
                 });
@@ -204,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let scrollInterval;
         
         const startScroll = () => {
+            if (window.innerWidth <= 768) return; // Disable auto-scroll on mobile to allow smooth native swiping
             scrollInterval = setInterval(() => {
                 if (!isHovered) {
                     galleryGrid.scrollLeft += 1.5; // Smooth incremental speed
