@@ -1290,6 +1290,13 @@ a {
 }
 
 @media (max-width: 992px) {
+    .nav-container {
+        padding: 0 2rem !important;
+    }
+    
+    .split-menu-section {
+        padding: 10rem 0 6rem 0 !important;
+    }
 
     /* Mobile Safari-style Scroller for Sidebar */
     .split-menu-container {
@@ -1299,17 +1306,16 @@ a {
     }
     
     .menu-sidebar {
-        width: 100%;
         position: sticky;
         top: 60px; /* Below the navbar */
         z-index: 100 !important;
         background: rgba(253, 251, 247, 0.98); 
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(0,0,0,0.1);
-        padding: 1rem;
-        padding-right: 0;
-        margin: 0 -1rem; /* Edge-to-edge full width */
-        width: calc(100% + 2rem);
+        padding: 1rem !important;
+        margin-left: -1rem !important;
+        margin-right: -1rem !important;
+        width: auto !important;
         max-height: auto;
     }
     
@@ -1345,7 +1351,7 @@ a {
         padding: 2.5rem 2rem;
     }
 
-        .desktop-only { display: none !important; }
+    .desktop-only { display: none !important; }
     .mobile-only { display: flex !important; }
 
     .museum-grid {
@@ -1363,28 +1369,56 @@ a {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1rem !important;
+    }
+    .nav-container {
+        padding: 0 1.5rem !important;
+    }
     .split-view-list { column-count: 1; }
     .category-header h3 { font-size: 1.5rem; }
     .menu-content-flow { padding: 1.5rem 1rem; }
-    .split-menu-section { padding: 4rem 0; }
+    .split-menu-section { padding: 9rem 0 4rem 0 !important; }
     .monolith-chapter-title {
         font-size: 1.4rem; /* Shrink title */
         margin-bottom: 1.5rem;
     }
-    .menu-item-name { font-size: 1.05rem; }
-    .menu-item-price { font-size: 1.1rem; }
+    
+    /* Defensive flex layout sizing for menu list items to prevent overflow */
+    .menu-item-name { 
+        font-size: 1.05rem; 
+        min-width: 0;
+    }
+    .menu-item-price { 
+        font-size: 1.1rem; 
+        flex-shrink: 0;
+    }
     .menu-list li { margin-bottom: 0.6rem; } /* Tighter list stacking */
     
+    /* Horizontal sliding track for food gallery slides on mobile */
     .museum-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-        overflow-x: visible !important;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 1.2rem !important;
+        padding-bottom: 1.5rem !important;
+        margin-left: -1rem !important;
+        margin-right: -1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+    .museum-grid::-webkit-scrollbar {
+        display: none !important;
     }
     .museum-frame {
-        flex: none !important;
-        max-width: 100% !important;
+        flex: 0 0 85% !important;
+        max-width: 85% !important;
+        scroll-snap-align: center !important;
     }
+    
     .nav-links, .nav-cta { display: none; }
     .mobile-menu-btn { display: block; }
     
