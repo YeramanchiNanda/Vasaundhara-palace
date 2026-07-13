@@ -62,8 +62,8 @@ class _WebViewContainerState extends State<WebViewContainer> {
           },
         ),
       )
-      // Loads local server by default. In production, change to public URL.
-      ..loadRequest(Uri.parse('http://192.168.0.107:8000/index.html'));
+      // Loads local offline-capable web assets bundled inside the Flutter app.
+      ..loadFlutterAsset('assets/web/index.html');
   }
 
   @override

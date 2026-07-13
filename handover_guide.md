@@ -1,74 +1,124 @@
-# Vasundhara Palace - Client Website Handover Guide
+# Vasundhara Palace - Master Website Handover & Operations Guide
 
-Welcome to your new website! This guide explains how to easily manage and update the website's content, menu items, images, and videos without writing any code.
-
----
-
-## 1. Updating the Food & Beverage Menu
-
-We have separated the menu data from the visual design. All menu items, prices, and special configurations are kept in a single, simple data file: `data/menu.json`.
-
-### How to edit the menu:
-1. Open the file **`data/menu.json`** using any text editor (such as Notepad on Windows or TextEdit on Mac, or a code editor like VS Code).
-2. Inside, you will see lists of items grouped under their categories (e.g., Breakfast Classics, Dosa Specials). Each item looks like this:
-   ```json
-   {"name": "Masala Dosa / Set Dosa", "price": "₹80"}
-   ```
-3. **To change a price**: Simply change the number after `"price"`. E.g., `"price": "₹90"`.
-4. **To add a new item**: Add a new line inside the brackets following the exact formatting:
-   ```json
-   {"name": "My New Signature Dish", "price": "₹150"}
-   ```
-   *Note: Ensure every item in a list ends with a comma `,` EXCEPT the very last item in that category.*
-5. **Special badges (Gold Stars)**: If you want to show a golden highlight star next to a chef special, add `"special": true`. E.g.:
-   ```json
-   {"name": "Ghee Masala Dosa", "price": "₹125", "special": true}
-   ```
-6. **Out-of-Stock / Unavailable items**: If an item is temporarily sold out, you can grey it out by adding `"disabled": true`. E.g.:
-   ```json
-   {"name": "Harabara Kabab", "price": "₹200", "disabled": true}
-   ```
-7. **Empty spacing**: To insert vertical empty spacing between sections within a category, add a spacer object:
-   ```json
-   {"spacer": true}
-   ```
-
-### Compile your changes:
-Once you have saved your edits in `data/menu.json`, you must regenerate the website:
-- **On macOS**: Double-click **`build_menu.command`**.
-- **On Windows**: Double-click **`build_menu.bat`**.
-
-A window will open and automatically update `menu.html`. You are now ready to upload the updated files to your hosting server!
+Welcome to the official client handover package for the **Vasundhara Palace** website. This handbook is designed for both the project administrator and the client. It details the deliverables, explains how to manage content (menu items, prices, videos, and images) with zero code, recommends hosting providers, and provides a clear sign-off process.
 
 ---
 
-## 2. Managing Images & Videos (Media)
+## 1. Deliverables Directory
 
-You can swap out any image or video on the website by simply replacing the files inside the **`assets/`** folder. 
+The website package is built using pure, high-performance HTML5, CSS3, and modern ES6 JavaScript. It is optimized to be responsive, meaning it renders beautifully on all devices—from desktop monitors to tablets and mobile phones.
 
-### Rules for media updates:
-- **Matching File Names**: Your new photo/video file must be named **exactly** like the original file name in the assets list.
-- **File Format**: The format must match (e.g., replace a `.jpg` image with a new `.jpg`, or a `.mp4` video with a `.mp4` video).
-
-For a complete reference of what file names appear where, open and read **`assets/MEDIA_UPLOADS_GUIDE.md`**.
-
-### Recommended Media Guidelines:
-To ensure the website loads lightning-fast for your guests, optimize your assets:
-- **Image Compression**: Use free online tools like [TinyJPG](https://tinyjpg.com/) or [TinyPNG](https://tinypng.com/) to compress images before saving them in the `assets/` folder.
-- **Image Formats**: Use `.jpg` for high-resolution food photography, and `.png` for graphics with transparent backgrounds (like your logo).
-- **Video Sizes**: Videos should be compressed (ideally under 10MB to 15MB) using tools like [Handbrake](https://handbrake.fr/).
+### Core File Structure
+* **`index.html`** - The homepage featuring the scrolling hero video, "Our Story" video, food grid portfolio, customer reviews, and interactive contact form.
+* **`menu.html`** - The interactive menu page displaying categories in a dual-column layout on desktop, and a horizontal scrollable category bar on mobile devices.
+* **`party-hall.html`** - A dedicated layout highlighting reception hall details, guest capacity, and a bento media showcase.
+* **`gallery.html`** - A widescreen cinematic lightbox grid showcasing high-resolution photos and silent looping videos.
+* **`styles.css`** - The master stylesheet containing colors, typography rules, mobile breakpoints (992px / 768px / 480px), and layout structures.
+* **`script.js`** - Controls interactive effects such as the loading screen fade-out, mobile navigation dropdown toggle, vertical sidebar scrollspy alignment, and video playlist loops.
+* **`data/menu.json`** - The central menu database.
+* **`update_menu.py`** - The automated script that compiles `menu.json` data into the visual design of `menu.html`.
 
 ---
 
-## 3. Deployment & Maintenance
+## 2. Web Hosting Recommendations (For Production Launch)
 
-### How to put changes live on your server:
-1. Generate the menu changes locally using the compiler script.
-2. Connect to your hosting provider's file manager (e.g., Hostinger cPanel File Manager, GoDaddy, Vercel, Firebase) or use an FTP client.
-3. Upload the modified files to your server directory:
-   - If you modified the menu: Upload `menu.html` and `data/menu.json`.
-   - If you replaced images/videos: Upload the modified files inside the `assets/` directory.
+Since the website is a static project, it does not require complex backend server runtimes (like PHP or Node.js). To support high user traffic and ensure instant loading times, we recommend the following options:
 
-### Maintenance & Caching best practices:
-- **Browser Caching**: Browsers cache static files (like images, styles, and videos) to make sites load faster. When you replace an asset (e.g. `vasundhara-lotus.png`), users might not see the new file immediately.
-- **The Cache Buster Solution**: In the HTML source code, you can append a version string to force browsers to fetch the new file (e.g. `href="assets/vasundhara-lotus.png?v=final_deploy"`, changing `final_deploy` to a new number or date like `v=2026_06_30`).
+### Option A: Vercel or Netlify (Recommended - Modern CDN Hosting)
+Best for: **Maximum speed, zero maintenance, and 100% uptime.**
+* **Cost:** Free tier (includes free SSL certificate and custom domain connection).
+* **Pros:** 
+  * Files are distributed across a Global Content Delivery Network (CDN), making page loads near-instant.
+  * Simple drop-and-deploy interface (drag folder onto Vercel dashboard).
+  * Auto-invalidates browser cache when files are updated.
+* **Cons:** No native email hosting (you would purchase custom emails like `info@vasundhara-palace.com` via Google Workspace or ZoHo Mail separately).
+
+### Option B: Hostinger or GoDaddy (Traditional cPanel Hosting)
+Best for: **All-in-one package (hosting + custom email boxes).**
+* **Cost:** Paid subscription (starting at $2 to $5/month).
+* **Pros:** 
+  * Includes cPanel access where you can directly manage files.
+  * Allows you to create and host email boxes directly on the server for free.
+* **Cons:** 
+  * Slower server response times compared to Netlify/Vercel CDNs.
+  * Manual cache busting is sometimes required for visitors to see media changes.
+
+---
+
+## 3. How to Update Website Content
+
+We have separated the data from the design. You do not need to edit HTML code to update the food menu or replace images/videos.
+
+### Part A: Updating the Food & Beverage Menu
+All menu categories, items, prices, and special highlight indicators are managed inside **`data/menu.json`**.
+
+1. Open **`data/menu.json`** in any simple text editor.
+2. Edit or add menu objects inside their category arrays:
+   ```json
+   {
+     "name": "Ghee Masala Dosa",
+     "price": "₹125",
+     "special": true
+   }
+   ```
+   * *`"name"`: The item title.*
+   * *`"price"`: The displayed price.*
+   * *`"special": true`: Appends a premium gold star badge next to the item name.*
+   * *`"disabled": true`: Greys out the item (e.g. if temporarily out-of-stock).*
+3. **Compile your changes:**
+   * **On macOS:** Double-click **`build_menu.command`**.
+   * **On Windows:** Double-click **`build_menu.bat`**.
+   * This runs the compiler tool and automatically rebuilds `menu.html` with your changes!
+
+### Part B: Managing Media (Images & Videos)
+You can swap any visual by simply replacing files in the **`assets/`** folder. Refer to the directory below:
+
+| Target File Name | Section | Recommendation / Size |
+| :--- | :--- | :--- |
+| `vasundhara-lotus.png` | Main Brand Logo | Transparent `.png` (`300x300px` approx) |
+| `vasundhara-hero2.mp4` | Main Hero Background Video | Compress under `3MB` for fast mobile loading |
+| `legacy-video.mp4` | "Our Story" section | Vertical Portrait `9:16` ratio |
+| `party-trailer.mp4` | Party Hall video showcase | Cinematic Widescreen `16:9` ratio |
+| `vasundhara-pic1.jpg` to `vasundhara-pic5.jpg` | Grid Images | Optimized `.jpg` files under `200KB` |
+
+*For a complete file-to-grid mapping sheet, check **`assets/MEDIA_UPLOADS_GUIDE.md`**.*
+
+---
+
+## 4. Step-by-Step Deployment Instructions
+
+### How to deploy to Vercel (CDP):
+1. Sign up for a free account at [Vercel](https://vercel.com/).
+2. Click **Add New Project**.
+3. Select **Deploy folder** and drag-and-drop the main project folder (`vasundhara-palace`).
+4. Vercel will analyze the structure and assign a free preview link (e.g. `vasundhara-palace.vercel.app`).
+5. Go to project settings, click **Domains**, and type your custom domain (e.g. `vasundhara-palace.com`). Update your domain registrar DNS settings (add CNAME/A records) as prompted by Vercel.
+
+### How to deploy to Hostinger/GoDaddy (cPanel):
+1. Log in to your hosting account and open the **File Manager**.
+2. Navigate to the public directory (usually **`public_html`**).
+3. Upload all the website files (`index.html`, `menu.html`, `party-hall.html`, `gallery.html`, `styles.css`, `script.js`, `404.html`, and the folders `assets/` and `data/`).
+4. Visitors will immediately be able to load the site at your domain address.
+
+---
+
+## 5. Formal Project Sign-off & Acceptance
+
+A professional handover requires a formal sign-off. Below is the checklist to execute with your client to complete the project cycle.
+
+### Deliverables Checklist
+- [ ] Responsive Website source package delivered.
+- [ ] Local menu compiler script successfully configured and tested.
+- [ ] Responsive mobile layouts verified on iOS (Safari) and Android (Chrome) viewports.
+- [ ] Initial performance audit complete (hero background video optimized to 2.5MB).
+- [ ] Master Handover Guide delivered.
+
+### Client Acceptance Sign-off
+By signing below, the Client confirms that all deliverables have been completed, inspected, and accepted according to the project specifications.
+
+* **Client Name:** ___________________________
+* **Signature:** _____________________________
+* **Date:** __________________________________
+* **Developer Name:** _______________________
+* **Signature:** _____________________________
+* **Date:** __________________________________
