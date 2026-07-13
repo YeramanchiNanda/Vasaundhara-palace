@@ -57,14 +57,14 @@ def compile_menu():
                 price = item.get("price")
                 
                 # Check for item classes
-                classes = []
+                classes = ["menu-item-name"]
                 if item.get("special"):
                     classes.append("special")
                 if item.get("disabled"):
                     classes.append("disabled")
                 
-                class_attr = f' class="{" ".join(classes)}"' if classes else ""
-                cat_html.append(f'                        <li><div class="menu-item-name{class_attr}">{name}</div><div class="menu-dots"></div><div class="menu-item-price">{price}</div></li>')
+                class_attr = f' class="{" ".join(classes)}"'
+                cat_html.append(f'                        <li><div{class_attr}>{name}</div><div class="menu-dots"></div><div class="menu-item-price">{price}</div></li>')
 
         cat_html.append('                    </ul>')
         cat_html.append('                </div>')
