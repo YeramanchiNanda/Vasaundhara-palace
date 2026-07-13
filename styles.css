@@ -1348,7 +1348,16 @@ a {
         .desktop-only { display: none !important; }
     .mobile-only { display: flex !important; }
 
-    .museum-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .museum-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+        overflow-x: visible !important;
+    }
+    .museum-frame {
+        flex: none !important;
+        max-width: 100% !important;
+    }
     .story-grid, .contact-grid, .testimonial-grid { grid-template-columns: 1fr; gap: 3rem; }
     .luxury-panel { padding: 2rem; }
 }
@@ -1366,9 +1375,41 @@ a {
     .menu-item-price { font-size: 1.1rem; }
     .menu-list li { margin-bottom: 0.6rem; } /* Tighter list stacking */
     
-    .museum-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .museum-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        overflow-x: visible !important;
+    }
+    .museum-frame {
+        flex: none !important;
+        max-width: 100% !important;
+    }
     .nav-links, .nav-cta { display: none; }
     .mobile-menu-btn { display: block; }
+    
+    /* Mobile Navbar Dropdown Styles */
+    .navbar.nav-open .nav-links {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 2rem;
+        gap: 1.5rem;
+        align-items: center;
+    }
+    .navbar.nav-open .nav-cta {
+        display: inline-block !important;
+        margin: 1rem auto;
+        text-align: center;
+        width: fit-content;
+    }
+    
     .hero-title { font-size: 2.5rem; }
     .section { padding: 5rem 0; } /* Extra bottom padding for the sticky nav */
 }

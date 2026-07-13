@@ -15,20 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(removePreloader, 1500);
     // 1. Mobile Menu Toggle
     const mobileBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
+    const navbarEl = document.querySelector('.navbar');
     
-    mobileBtn.addEventListener('click', () => {
-        // Simple toggle for now (could be expanded into a fullscreen menu)
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '100%';
-        navLinks.style.left = '0';
-        navLinks.style.width = '100%';
-        navLinks.style.background = 'rgba(10,10,10,0.95)';
-        navLinks.style.padding = '2rem';
-        navLinks.style.borderBottom = '1px solid rgba(212,175,55,0.3)';
-    });
+    if (mobileBtn && navbarEl) {
+        mobileBtn.addEventListener('click', () => {
+            navbarEl.classList.toggle('nav-open');
+        });
+    }
 
     // 2. Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
@@ -56,8 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Close mobile menu if open
-                if (window.innerWidth <= 768 && navLinks.style.display === 'flex') {
-                    navLinks.style.display = 'none';
+                const navbarContainer = document.querySelector('.navbar');
+                if (navbarContainer && navbarContainer.classList.contains('nav-open')) {
+                    navbarContainer.classList.remove('nav-open');
                 }
             }
         });
